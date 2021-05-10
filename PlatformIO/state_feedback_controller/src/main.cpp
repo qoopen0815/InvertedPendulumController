@@ -2,7 +2,6 @@
 #include <freertos/FreeRTOS.h>
 #include <I2Cdev.h>
 #include <Kalman.h>
-#include <MadgwickAHRS.h>
 #include <MPU6050.h>
 #include <RotaryEncoder.h>
 #include <TB6612FNG.h>
