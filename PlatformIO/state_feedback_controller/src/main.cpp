@@ -36,6 +36,7 @@ Tb6612fng motors(STBY, AIN1, AIN2, PWMA, BIN1, BIN2, PWMB);
 int16_t ax, ay, az;
 int16_t gx, gy, gz;
 int16_t tempRaw;
+double pitch, gyroY;
 double kalAngleY; // Calculated angle using a Kalman filter
 
 // Encoder parameter
@@ -109,8 +110,8 @@ void readInclinometer(void *pvParameters)  // This is a task.
   for (;;) // A Task shall never return or exit.
   {
     imu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-    double pitch = atan2(-ax, az) * RAD_TO_DEG;
-    double gyroY = gy / 131.0;  // Convert to deg/s
+    pitch = atan2(-ax, az) * RAD_TO_DEG;
+    gyroY = gy / 131.0;  // Convert to deg/s
     kalAngleY = inclinometer.getAngle(pitch, gyroY, 2);
     digitalWrite(TESTPINA, !(digitalRead(TESTPINA)));
     vTaskDelay(2);  // one tick delay (15ms) in between reads for stability
